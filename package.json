@@ -4,7 +4,8 @@
   "description": "myRESTfulApp",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": ". config/env.sh && npm run start"
   },
   "author": "Arvind Ravulavaru",
   "license": "MIT",

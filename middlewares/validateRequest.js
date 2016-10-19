@@ -15,7 +15,7 @@ module.exports = function(req, res, next) {
 
   if (token || key) {
     try {
-      var decoded = jwt.decode(token, require('../config/secret.js')());
+      var decoded = jwt.decode(token, process.env.API_SECRET);
 
       if (decoded.exp <= Date.now()) {
         res.status(400);
