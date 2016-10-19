@@ -1,1 +1,1 @@
-export API_SECRET=super.super.secret.shhh1
+export API_SECRET=abracadabra.opensesemi
