@@ -1,9 +1,8 @@
 const express = require('express');
-const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -11,20 +10,20 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.all('/*', function(req, res, next) {
+app.all('/*', (req, res, next) => {
   // Set Headers for CORS
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
 
-  if (req.method == 'OPTIONS') {
+  if (req.method === 'OPTIONS') {
     res.status(200).end();
   } else {
     next();
   }
 });
 
-app.use('/auth', function(req, res) {
+app.use('/auth', (req, res) => {
   // TODO: Read the header and validate request with
   // `api-key` and `api-secret` and return generated `access_token`
 
@@ -33,28 +32,33 @@ app.use('/auth', function(req, res) {
   // const apiSecret = headers['api-secret'];
 
   res.status(200)
-   .send({
-      "status": 200,
-      "access_token": "(access_token)"
-    }
-  );
-})
+    .send({
+      status: {
+        code: 200,
+        message: 'OK'
+      },
+      access_token: '(access_token)'
+    });
+});
 
 app.all('/v1/*', [require('./middlewares/auth')]);
 app.use('/', require('./routes'));
 
 // Handle 404 requests
-app.use(function(req, res, next) {
+app.use((req, res) => {
   res.status(404)
-   .send({
-      "status": 404,
-      "message": "Not Found"
+    .send({
+      status: {
+        code: 404,
+        message: 'Not Found'
+      }
     });
 });
 
 // Start the server
 app.set('port', process.env.API_PORT || 3001);
 
-var server = app.listen(app.get('port'), function() {
-  console.log('Server listening on port ' + server.address().port);
+const server = app.listen(app.get('port'), () => {
+  // eslint-disable-next-line no-console
+  console.log(`Server listening on port ${server.address().port}`);
 });

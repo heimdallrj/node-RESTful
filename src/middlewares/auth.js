@@ -1,5 +1,5 @@
 
-module.exports = function(req, res, next) {
+module.exports = (req, res, next) => {
   const token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
 
   // TODO: Check for valid access token
@@ -11,8 +11,10 @@ module.exports = function(req, res, next) {
   if (!token) {
     res.status(403)
       .send({
-        "status": 403,
-        "message": "Not Authorized"
+        status: {
+          code: 403,
+          message: 'Not Authorized'
+        }
       });
   }
 
