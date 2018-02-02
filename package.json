@@ -1,18 +1,21 @@
 {
-  "name": "myRESTfulApp",
-  "version": "0.1.0",
-  "description": "myRESTfulApp",
-  "main": "server.js",
+  "name": "node-RESTful",
+  "version": "0.0.1",
+  "description": "NodeJs RESTful API Skelaton",
+  "main": "src/index.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": ". config/env.sh && npm run start"
+    "start": ". .env && node src/index.js",
+    "dev": ". .env && nodemon src/index.js"
   },
-  "author": "Arvind Ravulavaru",
+  "author": "thinkholic <mailtokasun@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.8.3",
     "express": "^4.9.4",
     "jwt-simple": "^0.2.0",
     "morgan": "^1.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.12"
   }
 }
