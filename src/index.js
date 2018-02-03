@@ -6,15 +6,20 @@ const app = express();
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 
 app.all('/*', (req, res, next) => {
   // Set Headers for CORS
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Content-type,Accept,X-Access-Token,X-Key'
+  );
 
   if (req.method === 'OPTIONS') {
     res.status(200).end();
@@ -31,14 +36,13 @@ app.use('/auth', (req, res) => {
   // const apiKey = headers['api-key'];
   // const apiSecret = headers['api-secret'];
 
-  res.status(200)
-    .send({
-      status: {
-        code: 200,
-        message: 'OK'
-      },
-      access_token: '(access_token)'
-    });
+  res.status(200).send({
+    status: {
+      code: 200,
+      message: 'OK'
+    },
+    access_token: '(access_token)'
+  });
 });
 
 app.all('/v1/*', [require('./middlewares/auth')]);
@@ -46,13 +50,12 @@ app.use('/', require('./routes'));
 
 // Handle 404 requests
 app.use((req, res) => {
-  res.status(404)
-    .send({
-      status: {
-        code: 404,
-        message: 'Not Found'
-      }
-    });
+  res.status(404).send({
+    status: {
+      code: 404,
+      message: 'Not Found'
+    }
+  });
 });
 
 // Start the server
