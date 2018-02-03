@@ -14,4 +14,4 @@ npm i
 
 `npm start`
 
-> `npm run dev` to run with `nodemon`
+> `npm run dev` to run with [nodemon]((https://nodemon.io/))
